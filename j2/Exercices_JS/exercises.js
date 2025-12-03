@@ -4,7 +4,7 @@
 // ============================================
 function calculerMoyenne(nombres) {
     let somme = 0;
-    for (let i = 0; i <= nombres.length; i++) {
+    for (let i = 0; i < nombres.length; i++) {
         somme += nombres[i];
     }
     return somme / nombres.length;
@@ -42,7 +42,23 @@ function testExercice1() {
 // EXERCICE 2: Validation d'email
 // PROBLÈME: Code mal structuré et difficile à lire
 // ============================================
-function validerEmail(e){var r=false;if(e&&e.length>0){if(e.indexOf('@')>0){if(e.indexOf('.')>e.indexOf('@')){if(e.indexOf('@')===e.lastIndexOf('@')){if(e.split('@')[1].length>0){if(e.split('.')[e.split('.').length-1].length>=2){r=true;}}}}}}return r;}
+function validerEmail(e) {
+    var r = false;
+    if (e && e.length > 0) {
+        if (e.indexOf('@') > 0) {
+            if (e.indexOf('.') > e.indexOf('@')) {
+                if (e.indexOf('@') === e.lastIndexOf('@')) {
+                    if (e.split('@')[1].length > 0) {
+                        if (e.split('.')[e.split('.').length - 1].length >= 2) {
+                            r = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return r;
+}
 
 function testExercice2() {
     const resultDiv = document.getElementById('result2'); 
@@ -86,10 +102,10 @@ function testExercice2() {
 function rechercherElement(tableau, element) {
     for (let i = 0; i < tableau.length; i++) {
         if (tableau[i] === element) {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 function testExercice3() {
@@ -127,15 +143,9 @@ function testExercice3() {
 // PROBLÈME: Mauvaises pratiques (boucle manuelle au lieu de filter)
 // ============================================
 function filtrerPairs(nombres) {
-    var resultat = [];
-    var i = 0;
-    while (i < nombres.length) {
-        if (nombres[i] % 2 == 0) {
-            resultat[resultat.length] = nombres[i];
-        }
-        i = i + 1;
-    }
-    return resultat;
+    // Utilise la méthode filter() pour retourner uniquement les nombres pairs
+    // Un nombre est pair si le reste de sa division par 2 est égal à 0
+    return nombres.filter(nombre => nombre % 2 === 0);
 }
 
 function testExercice4() {
@@ -175,8 +185,8 @@ function testExercice4() {
 // ============================================
 function trierParAge(personnes) {
     for (let i = 0; i < personnes.length; i++) {
-        for (let j = 0; j < personnes.length; j++) {
-            if (personnes[j].age < personnes[j + 1].age) {
+        for (let j = 0; j < personnes.length - 1; j++) {
+            if (personnes[j].age > personnes[j + 1].age) {
                 let temp = personnes[j];
                 personnes[j] = personnes[j + 1];
                 personnes[j + 1] = temp;
@@ -227,27 +237,27 @@ function testExercice5() {
 // PROBLÈME: Code dupliqué et répétitif
 // ============================================
 function calculerReduction(prix, categorie) {
-    if (categorie === 'etudiant') {
-        let reduction = prix * 0.20;
-        let prixFinal = prix - reduction;
-        return prixFinal;
+    let reduction;
+    
+    switch (categorie) {
+        case 'etudiant':
+            reduction = prix * 0.20;
+            break;
+        case 'senior':
+            reduction = prix * 0.15;
+            break;
+        case 'enfant':
+            reduction = prix * 0.30;
+            break;
+        case 'militaire':
+            reduction = prix * 0.25;
+            break;
+        default:
+            return prix;
     }
-    if (categorie === 'senior') {
-        let reduction = prix * 0.15;
-        let prixFinal = prix - reduction;
-        return prixFinal;
-    }
-    if (categorie === 'enfant') {
-        let reduction = prix * 0.30;
-        let prixFinal = prix - reduction;
-        return prixFinal;
-    }
-    if (categorie === 'militaire') {
-        let reduction = prix * 0.25;
-        let prixFinal = prix - reduction;
-        return prixFinal;
-    }
-    return prix;
+    
+    let prixFinal = prix - reduction;
+    return prixFinal;
 }
 
 function testExercice6() {
